@@ -1,4 +1,1 @@
-client_id = "your_client_id_here"
-secret_key = "your_secret_key_here"
-av_key = "your_alpha_vantage_key_here"
-consumer_key = "your_consumer_key_here"
+keys.py
