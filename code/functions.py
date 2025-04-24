@@ -1088,57 +1088,88 @@ def plot_spy_fin(ohlc_data):
     fig.suptitle('SPY - 10 Year Performance', size=30)
     fig.subplots_adjust(top=0.92)
 
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
 def plot_spy_fut_tsy_funds_time_series(data):
     '''
     Plot the SPY, SPY Futures, 10Y Treasury Yield, and Fed Funds Curve
     '''
     try:
-        colors = ['b','c','g','r']
+        colors = ['b', 'c', 'g', 'r']
         labels = ['SPY Close', 'SPY Futures Close', '10Y Treasury Note Yield', 'Fed Funds Rate']
-        ylabels = ['SPY Close (USD)', 'SPY Futures Close (USD)', 'Treasury Yield %', 'Fed Funds Rate %']
         alpha = [0.9, 1, 1, 1]
         spy_range = (100, 425)
         yield_range = (0, 4)
         num_ticks = 9
         y_ranges = [spy_range, [10*x for x in spy_range], yield_range, yield_range]
         tick_params = dict(size=4, width=1.5, labelsize=16)
-        fig, ax1 = plt.subplots(figsize=(20,15))
+
+        fig, ax1 = plt.subplots(figsize=(20, 15))
         ax2 = ax1.twinx()
         ax3 = ax1.twinx()
         ax4 = ax1.twinx()
         axes = [ax1, ax2, ax3, ax4]
+
+        processed_data = []
         for n, ax in enumerate(axes):
-            if n<=1:
-                ax.spines['left'].set_position(("axes", 0-0.08*n))
+            # Set spine positions and colors
+            if n <= 1:
+                ax.spines['left'].set_position(("axes", 0 - 0.08 * n))
                 ax.spines['left'].set_edgecolor(colors[n])
                 ax.yaxis.set_label_position("left")
                 ax.yaxis.tick_left()
-            if n>=2:
-                ax.spines['right'].set_position(("axes", 1 + 0.04*(n-2)))
+            else:
+                ax.spines['right'].set_position(("axes", 1 + 0.04 * (n - 2)))
                 ax.spines['right'].set_edgecolor(colors[n])
-            # if n<=3:
-            data[n].plot(ax=ax, color=colors[n], alpha=alpha[n], label=labels[n], x_compat=True)
+                ax.yaxis.set_label_position("right")
+                ax.yaxis.tick_right()
+
+            # Ensure data is indexed by date for plotting
+            df = data[n].copy()
+            df['date'] = pd.to_datetime(df['date'], format='%d-%m-%Y', errors='coerce')
+            # Drop rows with NaN dates
+            df = df.dropna(subset=['date'])
+            if df.empty:
+                raise ValueError(f"DataFrame {labels[n]} is empty after dropping NaN dates.")
+            df = df.set_index('date').sort_index()
+            processed_data.append(df)
+
+            # Plot the data
+            df['value'].plot(ax=ax, color=colors[n], alpha=alpha[n], label=labels[n], x_compat=True)
+
+            # Set y-ticks and y-ticklabels properly
             y_ticks = np.linspace(y_ranges[n][0], y_ranges[n][1], num_ticks)
-            pad = (y_ranges[n][1] - y_ranges[n][0]) / (num_ticks-1)/5
-            y_lim = (y_ranges[n][0]-pad, y_ranges[n][1]+pad)
-            ax.set_yticklabels(y_ticks)
+            pad = (y_ranges[n][1] - y_ranges[n][0]) / (num_ticks - 1) / 5
+            y_lim = (y_ranges[n][0] - pad, y_ranges[n][1] + pad)
             ax.set_yticks(y_ticks)
+            ax.set_yticklabels([f'{tick:.3f}' for tick in y_ticks])
             ax.set_ylim(y_lim)
             ax.tick_params(axis='y', colors=colors[n], **tick_params)
 
+        # Set axis labels and positions
         ax1.set_ylabel('Price (USD)', size=20, rotation='horizontal')
-        ax1.yaxis.set_label_coords(-0.1,1.005)
+        ax1.yaxis.set_label_coords(-0.1, 1.005)
         ax3.set_ylabel('%', size=20, rotation='horizontal')
-        ax3.yaxis.set_label_coords(1.04,-0.005)
-        ax1.set_xlim(data[0].index[0], data[0].index[-1])
-        ax1.set_xlabel('Year', size=24)
+        ax3.yaxis.set_label_coords(1.04, -0.005)
+
+        # Set x-axis limits using the cleaned data
+        ax1.set_xlim(processed_data[0].index[0], processed_data[0].index[-1])
+        ax1.set_xlabel('Date', size=24)
         ax1.tick_params(axis='x', **tick_params)
+
+        # Add title and legend
         fig.suptitle(', '.join(labels), size=32)
         fig.subplots_adjust(top=0.92)
-        fig.legend(loc=(0.139, 0.8007), prop={"size":16})
-        plt.savefig(f'{TOP}/images/SPY_3Y_Comparison_Graph.png')
-    except Exception:
-        raise
+        fig.legend(loc=(0.139, 0.8007), prop={"size": 16})
+
+        # Save and show the plot
+        plt.savefig('SPY_3Y_Comparison_Graph.png')
+        plt.show()
+
+    except Exception as e:
+        raise e
 
 def test_stationarity(df_all, diffs=0):
     if diffs == 2:
