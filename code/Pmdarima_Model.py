@@ -22,6 +22,7 @@ import pmdarima as pm
 from pmdarima import pipeline
 from pmdarima.metrics import smape
 from sklearn.metrics import mean_squared_error as mse
+from sklearn.pipeline import Pipeline
 import prophet
 from statsmodels.tsa.stattools import adfuller
 from statsmodels.tsa.seasonal import seasonal_decompose
@@ -250,6 +251,7 @@ class Pmdarima_Model:
             mod_file = open(pkl_filepath,'wb')
             __pickle_it(params, pipe, params_df, scores, results, func_type, verbose)
             print(f'Saved best {func_type} model as {pkl_filepath}.') if verbose else None
+            plt.show()
             return
 
     def __split_df_dates(self, train, test):
@@ -767,7 +769,7 @@ class Pmdarima_Model:
                                     print('Added a model to test grid.') if verbose else None
                                     # or if model found but not scored, no need to write anything
                                     # otherwise, if model not found, write model params to csv
-                                    self.GS_all_mod_params_df = self.GS_all_mod_params_df.append(mod_params_df)
+                                    self.GS_all_mod_params_df = pd.concat([self.GS_all_mod_params_df, mod_params_df],ignore_index=True)
                                     self.GS_all_mod_params_df = self.GS_all_mod_params_df.reset_index(drop=True)
                                     self.GS_all_mod_params_df.index.name = 'Model'
                                     # print(self.GS_all_mod_params_df['Fourier_m'].dtypes)
@@ -1047,9 +1049,9 @@ class Pmdarima_Model:
             try:
                 self.model.named_steps['arima'].arroots()
             except Exception as e:
-                print('Fitting model... ', end='') if self.verbose else None
+                print('Fitting model... ', end='') if verbose else None
                 self.fit_model(model)
-                print('Done.') if self.verbose else None
+                print('Done.') if verbose else None
 
         elif func == 'adhoc':
             mod_params_df = self.mod_params_df
@@ -1123,9 +1125,9 @@ class Pmdarima_Model:
             try:
                 self.model.named_steps['arima'].arroots()
             except Exception as e:
-                print('Fitting model... ', end='') if self.verbose else None
+                print('Fitting model... ', end='') if verbose else None
                 self.fit_model(model)
-                print('Done.') if self.verbose else None
+                print('Done.') if verbose else None
 
         if verbose:
             if func == 'AA':
