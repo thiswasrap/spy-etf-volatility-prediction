@@ -1,0 +1,13 @@
+Model,ARIMA_Order,Diffs,Mod_Order,Trend,Intercept,Date,Fourier,Fourier_m,Fourier_k,BoxCox,Log,Scored,AIC,RMSE,RMSE%,SMAPE,CV_Time
+0,"(0, 1, 0)",1,0,t,False,True,True,252.0,2.0,False,False,True,-23193.0109,1.847,46.5183,66.1371,5687.5129
+1,"(0, 1, 0)",1,0,c,False,True,True,252.0,2.0,False,False,True,-21498.9655,0.0609,1.5339,2.2055,4374.1084
+2,"(0, 0, 0)",0,0,c,True,True,False,,,False,False,True,28132.1449,1.7804,44.8394,53.3432,1305.4385
+3,"(0, 0, 0)",0,0,t,True,True,False,,,False,False,True,24685.3293,1.7129,43.1391,61.1206,3784.6386
+4,"(0, 0, 0)",0,0,ct,True,True,False,,,False,False,True,23293.9689,2.0097,50.6152,71.9321,3882.1697
+5,"(0, 0, 0)",0,0,n,False,True,False,,,False,False,True,28130.1467,1.7807,44.8466,53.3481,1160.9086
+6,"(0, 1, 0)",1,0,c,False,True,True,252.0,2.0,False,False,True,-21498.9655,0.0609,1.5339,2.2055,4508.2647
+7,"(0, 0, 1)",0,1,c,True,True,False,,,False,False,True,18031.6427,0.9077,22.8607,35.6459,2376.9886
+8,"(0, 1, 0)",1,0,c,False,True,True,252.0,2.0,False,False,True,-21498.9655,0.0609,1.5339,2.2055,4339.4077
+9,"(0, 0, 1)",0,1,t,True,True,False,,,False,False,True,16252.5543,0.9109,22.9412,35.2543,4291.026
+10,"(0, 1, 0)",1,0,c,False,True,True,252.0,2.0,False,False,True,-21498.9655,0.0609,1.5339,2.2055,4254.9847
+11,"(0, 0, 1)",0,1,ct,True,True,False,,,False,False,True,14256.5688,1.2165,30.6382,38.3698,4668.5931

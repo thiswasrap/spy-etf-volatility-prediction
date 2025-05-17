@@ -1,0 +1,27 @@
+Model,ARIMA_Order,Diffs,Mod_Order,Trend,Intercept,Date,Fourier,Fourier_m,Fourier_k,BoxCox,Log,Scored,AIC,RMSE,RMSE%,SMAPE,CV_Time
+0,"(0, 1, 0)",1,0,c,True,True,False,,,False,False,True,-24854.0367,0.0536,8.3833,0.3127,2523.0023
+1,"(0, 1, 0)",1,0,t,True,True,False,,,False,False,True,-22462.4244,0.0536,8.3844,0.3094,2805.1657
+2,"(0, 1, 0)",1,0,ct,True,True,False,,,False,False,True,-22453.9949,0.0537,8.3875,0.3184,2809.7792
+3,"(0, 1, 0)",1,0,n,False,True,False,,,False,False,True,-24852.689,0.0537,8.3861,0.3074,2055.5312
+4,"(0, 1, 1)",1,1,c,True,True,False,,,False,False,True,-24852.025,0.0536,8.3833,0.3127,3853.2087
+5,"(0, 1, 1)",1,1,t,True,True,False,,,False,False,True,-22466.2888,0.0536,8.3844,0.3094,3017.5156
+6,"(0, 1, 1)",1,1,ct,True,True,False,,,False,False,False,,,,,
+7,"(0, 1, 1)",1,1,n,False,True,False,,,False,False,False,,,,,
+8,"(0, 1, 2)",1,2,c,True,True,False,,,False,False,False,,,,,
+9,"(0, 1, 2)",1,2,t,True,True,False,,,False,False,False,,,,,
+10,"(0, 1, 2)",1,2,ct,True,True,False,,,False,False,False,,,,,
+11,"(0, 1, 2)",1,2,n,False,True,False,,,False,False,False,,,,,
+12,"(1, 1, 0)",1,1,c,True,True,False,,,False,False,False,,,,,
+13,"(1, 1, 0)",1,1,t,True,True,False,,,False,False,False,,,,,
+14,"(1, 1, 0)",1,1,ct,True,True,False,,,False,False,False,,,,,
+15,"(1, 1, 0)",1,1,n,False,True,False,,,False,False,False,,,,,
+16,"(1, 1, 1)",1,2,c,True,True,False,,,False,False,False,,,,,
+17,"(1, 1, 1)",1,2,t,True,True,False,,,False,False,False,,,,,
+18,"(1, 1, 1)",1,2,ct,True,True,False,,,False,False,False,,,,,
+19,"(1, 1, 1)",1,2,n,False,True,False,,,False,False,False,,,,,
+20,"(2, 1, 0)",1,2,c,True,True,False,,,False,False,False,,,,,
+21,"(2, 1, 0)",1,2,t,True,True,False,,,False,False,False,,,,,
+22,"(2, 1, 0)",1,2,ct,True,True,False,,,False,False,False,,,,,
+23,"(2, 1, 0)",1,2,n,False,True,False,,,False,False,False,,,,,
+24,"(0, 0, 0)",0,0,c,True,True,False,,,False,False,True,23207.1882,3.5059,547.9691,115.4607,909.0239
+25,"(0, 0, 0)",0,0,t,True,True,False,,,False,False,True,20686.8119,2.6875,420.0543,80.6449,2008.2712
